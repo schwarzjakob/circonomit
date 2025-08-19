@@ -1,0 +1,268 @@
+{
+  "meta": {
+    "locale": "de-DE",
+    "version": "0.1"
+  },
+  "defaults": {
+    "goal": "Wir müssen unsere Produktionskosten minimieren, während die Zölle auf Rohstoffe in zwei Monaten voraussichtlich um 20 % steigen werden.",
+    "department": "Produktion",
+    "period": "Q4 2025",
+    "dataMode": "Unternehmenswissen"
+  },
+  "task_autogen": "Ziel: Produktionskosten im Zeitraum Q4/2025 minimieren. Annahme: Zölle auf Rohstoffe steigen ab 01.10.2025 um +20 %. Aufgabe: Simuliere Kostenentwicklung und identifiziere Maßnahmen (Vorziehen der Produktion, Lagerkosten, Effizienzpotenziale der Maschinen).",
+  "model_nodes": [
+    {
+      "id": "productionPlan",
+      "type": "block",
+      "title": "Production Plan",
+      "fields": {
+        "machine_failure_probability": 0.05
+      },
+      "position": { "x": 100, "y": 60 }
+    },
+    {
+      "id": "machine",
+      "type": "block",
+      "title": "Machine",
+      "fields": {
+        "number_of_machines": 20
+      },
+      "position": { "x": 100, "y": 180 }
+    },
+    {
+      "id": "timeline",
+      "type": "block",
+      "title": "Timeline",
+      "fields": {
+        "days": 30
+      },
+      "position": { "x": 100, "y": 240 }
+    },
+    {
+      "id": "maintenance",
+      "type": "block",
+      "title": "Maintenance",
+      "fields": {
+        "repair_costs_per_machine_per_day": 5000
+      },
+      "position": { "x": 100, "y": 300 }
+    },
+    {
+      "id": "failures",
+      "type": "calc",
+      "title": "Machine Failures",
+      "fields": {
+        "total_failure_days": 30,
+        "failure_days_per_machine": 1.5
+      },
+      "position": { "x": 350, "y": 200 }
+    },
+    {
+      "id": "repairCosts",
+      "type": "calc",
+      "title": "Repair Costs",
+      "fields": {
+        "total_repair_costs_eur": 150000
+      },
+      "position": { "x": 350, "y": 320 }
+    },
+    {
+      "id": "financials",
+      "type": "block",
+      "title": "Financial Actuals Plastic GmbH",
+      "fields": {
+        "planned_costs_eur": 2000000,
+        "actual_costs_eur": 2090000,
+        "repair_costs_deviation_eur": 90000,
+        "incl_repair_costs_pct": 2
+      },
+      "position": { "x": 500, "y": 120 }
+    },
+    {
+      "id": "tariffs",
+      "type": "scenario",
+      "title": "Tariffs",
+      "fields": {
+        "increase_pct": 20,
+        "start_date": "2025-10-01"
+      },
+      "position": { "x": 320, "y": 80 }
+    }
+  ],
+  "model_edges": [
+    ["machine", "failures"],
+    ["timeline", "failures"],
+    ["maintenance", "repairCosts"],
+    ["failures", "repairCosts"],
+    ["tariffs", "financials"],
+    ["repairCosts", "financials"]
+  ],
+  "insights": {
+    "kpis": {
+      "total_costs_q4_scenario_eur": 2125000,
+      "incremental_tariff_costs_eur": 180000,
+      "savings_preproduction_net_eur": 65000,
+      "message": "Kurzfristige Einsparung möglich; langfristige Effekte beachten."
+    },
+    "series_costs": [
+      {"month": "Sep", "baseline": 650000, "tariff": 650000, "preproduce": 720000},
+      {"month": "Okt", "baseline": 650000, "tariff": 780000, "preproduce": 540000},
+      {"month": "Nov", "baseline": 350000, "tariff": 430000, "preproduce": 410000},
+      {"month": "Dez", "baseline": 350000, "tariff": 365000, "preproduce": 395000}
+    ],
+    "series_inventory": [
+      {"month": "Sep", "inventory_costs": 70000, "tariff_extra": 0},
+      {"month": "Okt", "inventory_costs": 30000, "tariff_extra": 130000}
+    ],
+    "recommendations": [
+      {
+        "title": "Produktion im September hochfahren",
+        "body": "Vorziehen reduziert Zollbelastung; Einsparungen übersteigen zusätzliche Lagerkosten im Q4‑Zeitraum.",
+        "type": "action"
+      },
+      {
+        "title": "Maschineneffizienz prüfen",
+        "body": "Ist‑Daten deuten auf unterdurchschnittliche Effizienz hin; Upgrades/Wartungsprogramme evaluieren (Langfrist‑Hebel).",
+        "type": "insight"
+      },
+      {
+        "title": "Beschaffungskonditionen verhandeln",
+        "body": "Alternativen/Verträge prüfen, um Zollanfälligkeit zu senken (z. B. Lieferant, Ursprungsnachweise).",
+        "type": "action"
+      }
+    ],
+    "disclaimer": "Diese Empfehlung adressiert kurz- bis mittelfristige Effekte. Langfristige Wirkungen (z. B. Kapazitätsbindung, Technologieentscheidungen) sind gesondert zu bewerten."
+  },
+  "library": {
+    "okrs": [
+      {
+        "id": "okr1",
+        "title": "Produktionskosten um 15% senken",
+        "department": "Produktion",
+        "quarter": "Q4",
+        "year": "2025"
+      },
+      {
+        "id": "okr2", 
+        "title": "Cashflow-Optimierung Q1",
+        "department": "Finanzen",
+        "quarter": "Q1",
+        "year": "2025"
+      },
+      {
+        "id": "okr3",
+        "title": "Maschineneffizienz steigern",
+        "department": "Produktion", 
+        "quarter": "Q3",
+        "year": "2025"
+      },
+      {
+        "id": "okr4",
+        "title": "Working Capital reduzieren",
+        "department": "Finanzen",
+        "quarter": "Q2",
+        "year": "2025"
+      },
+      {
+        "id": "okr5",
+        "title": "Lieferketten-Resilienz",
+        "department": "Produktion",
+        "quarter": "Q1",
+        "year": "2026"
+      }
+    ],
+    "simulations": [
+      {
+        "id": "sim1",
+        "title": "Produktionskosten in Q4 2025 bei 20% Zollerhöhung auf Rohmaterialien",
+        "department": "Produktion",
+        "timeframe": "Q4 2025",
+        "quarter": "Q4",
+        "year": "2025",
+        "okrs": ["okr1"],
+        "chartData": [
+          {"month": "Sep", "baseline": 650000, "tariff": 650000},
+          {"month": "Okt", "baseline": 650000, "tariff": 780000},
+          {"month": "Nov", "baseline": 350000, "tariff": 430000},
+          {"month": "Dez", "baseline": 350000, "tariff": 365000}
+        ],
+        "chartType": "line",
+        "insight": "Vorproduktion im September kann €65.000 netto einsparen und Zollbelastung signifikant reduzieren.",
+        "status": "completed",
+        "createdDate": "2025-08-10"
+      },
+      {
+        "id": "sim2",
+        "title": "Maschineneffizienz-Analyse: ROI von Upgrade-Investitionen",
+        "department": "Produktion",
+        "timeframe": "Q3 2025",
+        "quarter": "Q3", 
+        "year": "2025",
+        "okrs": ["okr3"],
+        "chartData": [
+          {"category": "Ist-Effizienz", "value": 72},
+          {"category": "Benchmark", "value": 85},
+          {"category": "Nach Upgrade", "value": 88}
+        ],
+        "chartType": "bar",
+        "insight": "Maschinen-Upgrades können Effizienz um 16% steigern mit ROI von 18 Monaten.",
+        "status": "mock",
+        "createdDate": "2025-07-15"
+      },
+      {
+        "id": "sim3",
+        "title": "Cashflow-Optimierung durch Zahlungsziel-Anpassungen",
+        "department": "Finanzen",
+        "timeframe": "Q1 2025",
+        "quarter": "Q1",
+        "year": "2025", 
+        "okrs": ["okr2"],
+        "chartData": [
+          {"month": "Jan", "current": -450000, "optimized": -200000},
+          {"month": "Feb", "current": -200000, "optimized": 100000},
+          {"month": "Mar", "current": 150000, "optimized": 400000}
+        ],
+        "chartType": "line",
+        "insight": "Anpassung der Zahlungsziele kann Working Capital um €650.000 verbessern.",
+        "status": "mock",
+        "createdDate": "2025-06-20"
+      },
+      {
+        "id": "sim4",
+        "title": "Lieferanten-Diversifikation: Risiko vs. Kosten",
+        "department": "Produktion",
+        "timeframe": "Q1 2026",
+        "quarter": "Q1",
+        "year": "2026",
+        "okrs": ["okr5"],
+        "chartData": [
+          {"scenario": "Single Source", "cost": 100, "risk": 85},
+          {"scenario": "Dual Source", "cost": 108, "risk": 45},
+          {"scenario": "Multi Source", "cost": 115, "risk": 25}
+        ],
+        "chartType": "bar",
+        "insight": "Dual-Sourcing bietet optimales Verhältnis zwischen Kosten (+8%) und Risikoreduktion (-47%).",
+        "status": "mock",
+        "createdDate": "2025-08-01"
+      },
+      {
+        "id": "sim5",
+        "title": "Working Capital durch Lagerbestand-Optimierung",
+        "department": "Finanzen",
+        "timeframe": "Q2 2025",
+        "quarter": "Q2",
+        "year": "2025",
+        "okrs": ["okr4"],
+        "chartData": [
+          {"month": "Apr", "current": 2800000, "optimized": 2200000},
+          {"month": "Mai", "current": 3100000, "optimized": 2400000},
+          {"month": "Jun", "current": 2900000, "optimized": 2300000}
+        ],
+        "chartType": "line",
+        "insight": "Intelligente Lagerbestand-Steuerung kann €600.000 Working Capital freisetzen.",
+        "status": "mock",
+        "createdDate": "2025-05-10"
+      }
+    ]
+  }
+}

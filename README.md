@@ -1,46 +1,106 @@
-# Getting Started with Create React App
+# Circonomit - German Customer Journey Prototype
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Ein UI-only Prototyp für eine deutsche Customer Journey, der den Entscheidungsfindungsprozess von Circonomit demonstriert.
 
-## Available Scripts
+## Übersicht
 
-In the project directory, you can run:
+Dieser Prototyp zeigt das vollständige Circonomit-System mit zwei Hauptbereichen:
 
-### `npm start`
+### 📚 Bibliothek (`/library`)
+- **Simulationsbibliothek** mit intelligenter Filterung nach Bereich, Zeit und OKRs
+- **5 Demo-Simulationen** als interaktive Kacheln mit Charts und Erkenntnissen  
+- **Abhängige Filter** (OKRs filtern nach Bereich/Zeit)
+- **Eine funktionale Simulation** (Produktionskosten) verlinkt zur bestehenden Journey
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### ⚡ Simulation (`/simulation/*`)
+1. **Ziel festlegen** (`/simulation/goal`) - Geschäftsziel-Eingabe mit deutschen Formularen
+2. **Simulationsauftrag** (`/simulation/task`) - Automatisch generierte Simulationsbeschreibung
+3. **Modellierung** (`/simulation/model`) - Interaktives Whiteboard ("Ein Miro das rechnen kann")
+4. **Erkenntnisse** (`/simulation/insights`) - Dashboard mit Charts und Handlungsempfehlungen
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Funktionen
 
-### `npm test`
+### ✅ Implementiert
+- **Vollständige 4-Screen Simulation** mit Zurück/Weiter-Buttons
+- **Simulationsbibliothek** mit intelligenter Filterung und Suche
+- **5 Demo-Simulationen** mit verschiedenen Charts (Line/Bar)
+- **Abhängige Filter-Logik** (Department → OKRs → Zeit)
+- **Deutsche Lokalisierung** aller UI-Texte und Labels
+- **Responsive Design** mit Tailwind CSS
+- **Interaktive Modellierung** mit editierbaren Nodes und visuellen Verbindungen
+- **Charts & Visualisierungen** mit Recharts (Kosten-Trends, Inventar-Vergleiche)
+- **Hardcoded Demo-Daten** für alle Szenarien
+- **TypeScript** für Typsicherheit
+- **State Management** mit React Context
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 🎯 Demo-Features
+- Upload-Komponenten (UI-only, deaktiviert)
+- Export-Button (zeigt Demo-Toast)
+- Editierbare Simulationsparameter
+- Interaktive Whiteboard-Nodes
+- Empfehlungskarten mit Prioritäten
 
-### `npm run build`
+## Technologie-Stack
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **React 19** mit TypeScript
+- **Tailwind CSS** für Styling
+- **React Router** für Navigation
+- **Recharts** für Diagramme
+- **Lucide React** für Icons
+- **Create React App** als Build-Tool
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Installation & Start
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+# Dependencies installieren
+npm install
 
-### `npm run eject`
+# Entwicklungsserver starten
+npm start
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# Production Build erstellen
+npm run build
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Die App läuft auf [http://localhost:3000](http://localhost:3000).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Projektstruktur
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```
+src/
+├── components/
+│   ├── Layout/           # Header, Navigation, Layout
+│   ├── Whiteboard/       # Canvas und ModelNode Komponenten
+│   ├── Charts/           # KPI Cards, Cost/Inventory Charts
+│   └── Recommendations/  # Recommendation Cards
+├── screens/              # Hauptscreens (Goal, Task, Model, Insights)
+├── context/              # React Context für State Management
+├── types/                # TypeScript Definitionen
+└── data/                 # Mock-Daten (JSON)
+```
 
-## Learn More
+## Demo-Szenario
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**Ausgangslage:** 20% Zollerhöhung auf Rohstoffe ab Oktober 2025  
+**Ziel:** Produktionskosten minimieren im Q4 2025
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Das System zeigt:
+- Automatische Aufgabengenerierung aus dem Geschäftsziel
+- Interaktive Modellierung mit Maschinen, Wartung, und Tarifen
+- Datenbasierte Empfehlungen (Vorproduktion vs. Zollmehrkosten)
+- Quantifizierte Einsparungen und Handlungsoptionen
+
+## Design-Prinzipien
+
+- **Enterprise-Look:** Sauberes, whitespace-reiches Design
+- **Deutsche Sprache:** Alle Texte und Einheiten auf Deutsch
+- **Accessibility:** Keyboard-Navigation und ARIA-Labels
+- **Mobile-Ready:** Responsive Grid-System
+
+## Lizenz
+
+Demo-Projekt für Circonomit Hiring Challenge
+
+---
+
+*Erstellt mit [Create React App](https://github.com/facebook/create-react-app)*
